@@ -30,7 +30,8 @@ package screens
 		private function init(e:Event):void 
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-				for (var i:int = 0; i < 2; i++) 
+				for (var i:int = 0; i < 1
+				; i++) 
 			{
 				balls.push(new Ball());
 				addChild(balls[i]);
@@ -72,7 +73,7 @@ package screens
 					if (paddles[j].hitTestObject(balls[i]))
 					{
 						balls[i].xMove *= -1;
-						balls[i].x += balls[i].xMove / 2;
+						balls[i].x += balls[i].xMove / 1;
 						
 						dispatchEvent(new Event(BALL_BOUNCE));
 					}
@@ -101,7 +102,7 @@ package screens
 		
 		private function checkScore():void 
 		{
-			if (scoreboard.player1 >= 10 || scoreboard.player2 >= 10)
+			if (scoreboard.player1 >= 20 || scoreboard.player2 >= 20)
 			{
 				destroy();
 				dispatchEvent(new Event(GAME_OVER));
