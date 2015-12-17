@@ -15,13 +15,30 @@ package actors
 		{
 			this.addEventListener(Event.ADDED_TO_STAGE, init);		
 		}		
-		private function init(e:Event):void 
+		private function init(e:Event):void
 		{
 			this.removeEventListener(Event.ADDED_TO_STAGE, init);
 			controller = new Controller(stage);
 			this.addEventListener(Event.ENTER_FRAME, loop);			
 		}
-		private function loop(e:Event):void 
+		private function loop(e:Event):void {
+		
+		}
+		
+		
+		public function set
+		speedController(nietHoger:Number):void { 	
+			if (nietHoger > 30) {
+				trace ("Je kan niet boven de 30 speed");
+				nietHoger = 30;
+			}
+			speed = nietHoger;
+		}
+		public function get speedRestriction():Number {
+			return speed;
+		}
+		public function Loop(e:Event):void
+		
 		{
 			if (controller.up)
 			{

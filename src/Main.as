@@ -18,7 +18,8 @@ package
 		private var gameOverScreen:GameOverScreen;
 		private var soundPlayer:SoundPlayer;
 		
-		public function Main() 
+		public function Main()
+        
 		{
 			if (stage) init();
 			else addEventListener(Event.ADDED_TO_STAGE, init);

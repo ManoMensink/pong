@@ -1,54 +1,63 @@
-package actors 
+package actors
 {
-	import flash.events.Event;
-	
-	/**
-	 * ...
-	 * @author erwin henraat
-	 */
-	public class AI extends Paddle 
-	{
-		private var _target:Ball;
-		private var _speed:Number = 0;
-		private var _maxSpeed:Number = 10;
-		private var _balls:Array;
-		public function set balls(b:Array):void
-		{
-			_balls = b;			
-		}
-		public function AI() 
-		{
-			this.addEventListener(Event.ADDED_TO_STAGE, init);
-		}
-		
-		private function init(e:Event):void 
-		{
-			removeEventListener(Event.ADDED_TO_STAGE, init);
-			this.addEventListener(Event.ENTER_FRAME, loop);						
-		}
-		private function getTarget():void
-		{
-			if (_target == null)_target = _balls[0];
-			if(_balls.length>1){
-				var closest:Ball = _balls[0];
-				for (var i:int = 1; i < _balls.length; i++) 
-				{
-					var d:Number = _balls[i-1].x - _balls[i].x;
-					if (d < 0) closest = _balls[i];
-				}
-				_target = closest;
-			}
-		}
-		private function loop(e:Event):void 
-		{
-			getTarget();
-									
-			if(_target != null){
-				if (_target.y < this.y - 10)_speed = -_maxSpeed;
-				else if (_target.y > this.y + 10)_speed = _maxSpeed;
-				else _speed = 0;
-				this.y += _speed;
-			}
-		}		
-	}
+        import utils.Controller;        
+        import flash.events.Event;
+        /**
+         * ...
+         * @author rm
+         */
+        public class Player extends Paddle 
+        {
+                private var controller:Controller;
+                private var speed:Number = 0;
+                
+                public function Player() 
+                {
+                        this.addEventListener(Event.ADDED_TO_STAGE, init);              
+                }               
+                private function init(e:Event):void 
+                {
+                        this.removeEventListener(Event.ADDED_TO_STAGE, init);
+                        controller = new Controller(stage);
+                        this.addEventListener(Event.ENTER_FRAME, Loop);                 
+                }
+                
+                public function set speedController(nietHoger:Number):void {
+                        if (nietHoger > 30) {
+                                trace ("Je kunt niet boven de 30 speed komen");
+                                nietHoger = 30;
+                        }
+                        speed = nietHoger;
+                }
+                public function get speedRestriction():Number {
+                        return speed;
+                        
+                        }
+                
+                public function Loop(e:Event):void 
+                {
+                        if (controller.up)
+                        {
+                                speed = -15;
+                        }
+                        else if(controller.down)
+                        {
+                                speed = 15;
+                        }else
+                        {
+                                if (speed > 0) speed--;
+                                if (speed < 0) speed++;
+                                
+                        }
+                        if (controller.fire)
+                        {
+                                
+                                
+                        }
+                        this.y += speed;
+                }
+                        
+        }
+                
+                
 }
